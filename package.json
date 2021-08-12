@@ -1,0 +1,14 @@
+{
+  "name": "fpts",
+  "version": "1.0.0",
+  "description": "test",
+  "main": "index.js",
+  "scripts": {
+    "test": "123"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "fp-ts": "^2.11.1"
+  }
+}
