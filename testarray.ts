@@ -3,7 +3,6 @@ import { pipe } from 'fp-ts/lib/function'
 interface Person{name: string, age: number, sexe: "male" | "female"}
 const getChild = (b: Person): ReadonlyArray<Person> => []
 const getAge = (c: Person) => c.age
-// const getSexe = (g:Person) => g.sexe
 
 const getGrandChildren = (a: Person) => {
     const son = getChild(a)
@@ -11,21 +10,23 @@ const getGrandChildren = (a: Person) => {
 }
 
 const getGrandChildren4 = (a: Person) => 
-    pipe(a, getChild , A.chain(getChild))
+    pipe(
+        a,
+        getChild,
+        A.chain(getChild)
+    )
 
 const getGrandChildrenAge = (a: Person) => 
-    pipe(getGrandChildren(a), A.map(getAge))
-
-
-// const getGender = (g: Person) => {
-//     return (g.sexe == "male" ? "male" : "female")   
-// }
+    pipe(
+        getGrandChildren(a),
+        A.map(getAge)
+    )
 
 // const isMale = people.filter((masc) => masc.sexe === 'male')
 
 // const isFemale = people.filter((fem) => fem.sexe === 'female')
 
-// const gender = (arrayof:Person[]) => {
+// const getGender = (arrayof:Person[]) => {
 //     return arrayof.filter(p => p.sexe === 'male')
 // }
 
@@ -35,11 +36,18 @@ const people: Person[] = [
     { name: 'Joe',age : 42, sexe: 'male' }
   ]
 
-const getGender = (p:Person) => {
+const isMale = (m:Person) => {
     pipe(
         people,
-        A.filter(p => p.sexe === "male")
+        A.filter(m => m.sexe === "male")
     )
 }
 
-export {getGrandChildren, getGender}
+const isFemale = (f:Person) => {
+    pipe(
+        people,
+        A.filter(f => f.sexe === "female")
+    )
+}
+
+export {getGrandChildren,getGrandChildren4,getGrandChildrenAge, isMale, isFemale}
