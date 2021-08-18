@@ -5,14 +5,13 @@ const getChild = (b: Person): ReadonlyArray<Person> => []
 const getAge = (c: Person) => c.age
 
 const getGrandChildren = (a: Person) => {
-    const son = getChild(a)
-    return A.chain(getChild) (son)
+    const child = getChild(a)
+    return A.chain(getChild) (child)
 }
 
 const getGrandChildren4 = (a: Person) => 
     pipe(
-        a,
-        getChild,
+        getChild(a),
         A.chain(getChild)
     )
 
@@ -50,4 +49,31 @@ const isFemale = (f:Person) => {
     )
 }
 
-export {getGrandChildren,getGrandChildren4,getGrandChildrenAge, isMale, isFemale}
+// Voici le besoin:
+// Je te propose de mettre ca en unit test et de faire le dev par la suite (mode TDD)
+
+const getGrandDaughterOf = (persons: Person[]) => (p: Person) =>{
+    pipe(
+        getGrandChildren(p),
+        A.chain(getGrandChildren),
+        A.map(isFemale)
+    )
+}
+// doit retourner toutes les petites filles de p
+
+const getGrandSonOfDaughters = (persons: Person[]) => (p: Person) => {
+    pipe(
+        getGrandChildren(p),
+        A.chain()
+    )
+}
+// doit retourner tous les fils des filles de p
+
+// et un extra:
+
+const hasNotBothDaughterAndSon = (persons: Person[]) => {}
+// retourne toutes les personnes n'ayant pas à la fois AU MOINS un fils ET une fille (attention aux cas particuliers)
+
+// module.exports = { getGrandDaughterOf, getGrandSonOfDaughters, hasNotBothDaughterAndSon };
+
+export {getGrandChildren,getGrandChildren4,getGrandChildrenAge, isMale, isFemale, getGrandDaughterOf, getGrandSonOfDaughters, hasNotBothDaughterAndSon}
