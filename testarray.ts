@@ -1,6 +1,11 @@
 import {option as O, readonlyArray as A} from  'fp-ts'
 import { pipe } from 'fp-ts/lib/function'
-interface Person{name: string, age: number, sexe: "male" | "female"}
+interface Person{
+    name: string,
+    age: number, 
+    sexe: "male" | "female"
+}
+
 const getChild = (b: Person): ReadonlyArray<Person> => []
 const getAge = (c: Person) => c.age
 
@@ -74,6 +79,15 @@ const getGrandSonOfDaughters = (persons: Person[]) => (p: Person) => {
 const hasNotBothDaughterAndSon = (persons: Person[]) => {}
 // retourne toutes les personnes n'ayant pas à la fois AU MOINS un fils ET une fille (attention aux cas particuliers)
 
-// module.exports = { getGrandDaughterOf, getGrandSonOfDaughters, hasNotBothDaughterAndSon };
 
-export {getGrandChildren,getGrandChildren4,getGrandChildrenAge, isMale, isFemale, getGrandDaughterOf, getGrandSonOfDaughters, hasNotBothDaughterAndSon}
+
+export {
+    getGrandChildren,
+    getGrandChildren4,
+    getGrandChildrenAge,
+    isMale,
+    isFemale,
+    getGrandDaughterOf,
+    getGrandSonOfDaughters,
+    hasNotBothDaughterAndSon
+}
